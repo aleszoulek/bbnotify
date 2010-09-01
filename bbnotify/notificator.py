@@ -4,6 +4,8 @@ import os
 import gtk
 import time
 import gobject
+import webbrowser
+import urlparse
 
 from os.path import join, dirname, abspath
 from datetime import datetime
@@ -47,6 +49,7 @@ class Notificator(object):
 
     def __init__(self, url):
         self.buildbot = BuildBot(url)
+        self.url = url
         self.icons = {}
         self.statuses = {}
         self.start()
@@ -55,6 +58,7 @@ class Notificator(object):
         for name, status in self.buildbot.get_status().items():
             if name not in self.icons:
                 self.icons[name] = gtk.StatusIcon()
+                self.icons[name].connect("activate", self.on_left_click)
             self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(status['result'])))
             self.icons[name].set_tooltip(name)
             if name in self.statuses:
@@ -71,7 +75,13 @@ class Notificator(object):
                         pass
             self.statuses[name] = status
         return True
-
+        
+    def on_left_click(self, status_icon):
+        url = urlparse.urlparse(self.url)
+        waterfall = "%s://%s/waterfall" % (url.scheme, url.netloc)
+        webbrowser.open(waterfall)
+        
     def start(self):
         self.refresh()
         gobject.timeout_add(TIMEOUT, self.refresh)
+
