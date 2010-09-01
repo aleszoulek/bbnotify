@@ -18,8 +18,13 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
-    packages=find_packages(exclude=['tests']),
-    scripts = ['bbnotify.py'],
+    packages=find_packages(),
+    entry_points = {
+        'console_scripts': [
+            'bbnotify = bbnotify:main',
+        ],
+    },
     include_package_data=True,
+    zip_safe = False,
 )
 
