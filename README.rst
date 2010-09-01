@@ -13,6 +13,6 @@ Usage
 
 ::
 
- ./bbnotify http://buildboturl/xmlrpc
+ ./bbnotify.py http://buildboturl/xmlrpc
 
 
