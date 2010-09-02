@@ -71,6 +71,7 @@ class Notificator(object):
             if name not in self.icons:
                 self.icons[name] = gtk.StatusIcon()
                 self.icons[name].connect("activate", self.on_left_click)
+                self.icons[name].connect("popup-menu", self.on_right_click)
             self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(status['result'])))
             self.icons[name].set_tooltip(name)
             if name in self.statuses:
@@ -88,12 +89,26 @@ class Notificator(object):
             self.statuses[name] = status
         return True
         
+    def start(self):
+        self.refresh()
+        gobject.timeout_add(TIMEOUT, self.refresh)
+        
+    def quit(self, data=None):
+        gtk.main_quit()
+        
     def on_left_click(self, status_icon):
         url = urlparse.urlparse(self.url)
         waterfall = "%s://%s/waterfall" % (url.scheme, url.netloc)
         webbrowser.open(waterfall)
         
-    def start(self):
-        self.refresh()
-        gobject.timeout_add(TIMEOUT, self.refresh)
-
+    def on_right_click(self, data, event_button, event_time):
+        self.make_menu(event_button, event_time)
+           
+    def make_menu(self, event_button, event_time, data=None):
+        menu = gtk.Menu()
+        quit_app = gtk.MenuItem("Quit")
+        menu.append(quit_app)
+        quit_app.connect_object("activate", self.quit, "Quit")
+        quit_app.show()
+        menu.popup(None, None, None, event_button, event_time)
+        
