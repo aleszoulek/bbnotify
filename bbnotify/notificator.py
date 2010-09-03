@@ -27,11 +27,11 @@ class BuildBot(object):
         self.connection = ServerProxy(self.url)
         self.last_status = {}
 
-    def call(self, func, *args, **kwargs):
+    def call(self, name, *args, **kwargs):
         while True:
             try:
-                getattr(self.connect, name)(*args, **kwargs)
-                break
+
+                return getattr(self.connection, name)(*args, **kwargs)
             except:
                 print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
                 time.sleep(self.CONNECTION_RETRY_TIMEOUT)
