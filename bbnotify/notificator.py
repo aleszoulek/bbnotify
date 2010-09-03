@@ -2,6 +2,7 @@
 
 import os
 import gtk
+import sys
 import time
 import gobject
 import webbrowser
@@ -19,15 +20,26 @@ TIMEOUT = 1000 * 30
 
 class BuildBot(object):
 
+    CONNECTION_RETRY_TIMEOUT = 10
+
     def __init__(self, url):
         self.url = url
         self.connection = ServerProxy(self.url)
         self.last_status = {}
 
+    def call(self, func, *args, **kwargs):
+        while True:
+            try:
+                getattr(self.connect, name)(*args, **kwargs)
+                break
+            except:
+                print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
+                time.sleep(self.CONNECTION_RETRY_TIMEOUT)
+
     def get_status(self):
         ret = {}
-        for builder_name in self.connection.getAllBuilders():
-            results = self.connection.getLastBuilds(builder_name, 3)[-1]
+        for builder_name in self.call('getAllBuilders'):
+            results = self.call('getLastBuilds', builder_name, 3)[-1]
             ret[builder_name] = {
                 'number': results[1],
                 'start': datetime.fromtimestamp(results[2]),
