@@ -1,10 +1,16 @@
 import os
+from os import path
 from setuptools import setup, find_packages
+
+f = open(path.join(path.dirname(__file__), 'README.rst'))
+long_description = f.read().strip()
+f.close()
 
 setup(
     name='bbnotify',
     version='0.1',
     description='Tray notification for BuildBot',
+    long_description=long_description,
     author='Ales Zoulek',
     author_email='ales.zoulek@gmail.com',
     license='BSD',
