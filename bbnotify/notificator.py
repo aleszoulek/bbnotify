@@ -114,7 +114,7 @@ class Notificator(object):
         
     def on_left_click(self, status_icon):
         url = urlparse.urlparse(self.url)
-        waterfall = "%s://%s/waterfall" % (url.scheme, url.netloc)
+        waterfall = "%s://%s%s/waterfall" % (url.scheme,  url.netloc, dirname(url.path))
         webbrowser.open(waterfall)
         
     def on_right_click(self, data, event_button, event_time):
