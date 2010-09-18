@@ -75,34 +75,36 @@ class Notificator(object):
         'nobuild': 'grey.png',
     }
 
-    def __init__(self, url):
+    def __init__(self, url, ignore_builders):
         self.buildbot = BuildBot(url)
         self.url = url
+        self.ignore_builders = ignore_builders
         self.icons = {}
         self.statuses = {}
         self.start()
 
     def refresh(self):
         for name, status in self.buildbot.get_status().items():
-            if name not in self.icons:
-                self.icons[name] = gtk.StatusIcon()
-                self.icons[name].connect("activate", self.on_left_click)
-                self.icons[name].connect("popup-menu", self.on_right_click)
-            self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(status['result'])))
-            self.icons[name].set_tooltip(name)
-            if name in self.statuses:
-                if self.statuses[name]['finished'] < status['finished']:
-                    try:
-                        os.popen(
-                            'notify-send -u %s -t 10000 "BuildBot" "%s: New build finished"' %
-                            (
-                                status['result'] == 'success' and 'normal' or 'critical',
-                                name,
+            if name not in self.ignore_builders:
+                if name not in self.icons:
+                    self.icons[name] = gtk.StatusIcon()
+                    self.icons[name].connect("activate", self.on_left_click)
+                    self.icons[name].connect("popup-menu", self.on_right_click)
+                self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(status['result'])))
+                self.icons[name].set_tooltip(name)
+                if name in self.statuses:
+                    if self.statuses[name]['finished'] < status['finished']:
+                        try:
+                            os.popen(
+                                'notify-send -u %s -t 10000 "BuildBot" "%s: New build finished"' %
+                                (
+                                    status['result'] == 'success' and 'normal' or 'critical',
+                                    name,
+                                )
                             )
-                        )
-                    except:
-                        pass
-            self.statuses[name] = status
+                        except:
+                            pass
+                self.statuses[name] = status
         return True
         
     def start(self):
