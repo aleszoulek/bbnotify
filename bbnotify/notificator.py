@@ -39,17 +39,32 @@ class BuildBot(object):
     def get_status(self):
         ret = {}
         for builder_name in self.call('getAllBuilders'):
-            results = self.call('getLastBuilds', builder_name, 3)[-1]
-            ret[builder_name] = {
-                'number': results[1],
-                'start': datetime.fromtimestamp(results[2]),
-                'finished': datetime.fromtimestamp(results[3]),
-                'branch': results[4],
-                'revision': results[5],
-                'result': results[6],
-                'text': results[7],
-                'reasons': results[8],
-            }
+            lastbuilds = self.call('getLastBuilds', builder_name, 3)
+            if len(lastbuilds) > 0:
+                results = lastbuilds[-1]
+                ret[builder_name] = {
+                    'number': results[1],
+                    'start': datetime.fromtimestamp(results[2]),
+                    'finished': datetime.fromtimestamp(results[3]),
+                    'branch': results[4],
+                    'revision': results[5],
+                    'result': results[6],
+                    'text': results[7],
+                    'reasons': results[8],
+                }
+            else:
+                #The builder has no build, use "nobuild" as it's status
+                ret[builder_name] = {
+                    'number': 0,
+                    'start': datetime.today(),
+                    'finished': datetime.today(),
+                    'branch': '',
+                    'revision': '0',
+                    'result': 'nobuild',
+                    'text': 'no current build',
+                    'reasons': '',
+                }
+
         return ret
 
 
@@ -57,6 +72,7 @@ class Notificator(object):
     ICONS = {
         'success': 'green.png',
         'failure': 'red.png',
+        'nobuild': 'grey.png',
     }
 
     def __init__(self, url):
