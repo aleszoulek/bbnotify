@@ -15,8 +15,9 @@ def main():
     parser.add_option("-f", "--forward", dest="nodaemon",
         action="store_true", default=False,
         help="don't run in background")
-    parser.add_option("-i", "--ignore_builder", dest="ignore_builders", metavar="builder_name",
-        action="append", help="don't display the status of this builder")
+    parser.add_option("-i", "--ignore-builder", dest="ignore_builders",
+        metavar="builder_name", action="append", default=[],
+        help="don't display the status of this builder")
 
     (options, args) = parser.parse_args()
 
