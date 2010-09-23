@@ -15,7 +15,7 @@ from xmlrpclib import ServerProxy
 
 
 MEDIA_DIR = join(abspath(dirname(__file__)), 'media')
-TIMEOUT = 1000 * 30
+TIMEOUT = 1000 * 30 # 30 sec
 
 
 class BuildBot(object):
@@ -106,22 +106,22 @@ class Notificator(object):
                             pass
                 self.statuses[name] = status
         return True
-        
+
     def start(self):
         self.refresh()
         gobject.timeout_add(TIMEOUT, self.refresh)
-        
+
     def quit(self, data=None):
         gtk.main_quit()
-        
+
     def on_left_click(self, status_icon):
         url = urlparse.urlparse(self.url)
         waterfall = "%s://%s%s/waterfall" % (url.scheme,  url.netloc, dirname(url.path))
         webbrowser.open(waterfall)
-        
+
     def on_right_click(self, data, event_button, event_time):
         self.make_menu(event_button, event_time)
-           
+
     def make_menu(self, event_button, event_time, data=None):
         menu = gtk.Menu()
         quit_app = gtk.MenuItem("Quit")
@@ -129,4 +129,4 @@ class Notificator(object):
         quit_app.connect_object("activate", self.quit, "Quit")
         quit_app.show()
         menu.popup(None, None, None, event_button, event_time)
-        
+
