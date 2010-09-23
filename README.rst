@@ -25,7 +25,7 @@ Usage
  Options:
    -h, --help            show this help message and exit
    -f, --forward         don't run in background
-   -i builder_name, --ignore_builder=builder_name
+   -i builder_name, --ignore-builder=builder_name
                          don't display the status of this builder
 
 
@@ -37,6 +37,6 @@ You can save some of your options in the file ~/.bbnotifyrc in the form
 
  [bbnotify]
  url=http://buildboturl/xmlrpc
- ignore_builders=list of builders to ignore
+ ignore-builders=list of builders to ignore
 
 
