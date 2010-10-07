@@ -76,7 +76,10 @@ class Notificator(object):
     }
 
     def __init__(self, url, ignore_builders):
-        self.buildbot = BuildBot(url)
+        if url.endswith('/'):
+            url = url[:-1]
+        self.url = url
+        self.buildbot = BuildBot(self.url)
         self.url = url
         self.ignore_builders = ignore_builders
         self.icons = {}
@@ -115,8 +118,7 @@ class Notificator(object):
         gtk.main_quit()
 
     def on_left_click(self, status_icon):
-        url = urlparse.urlparse(self.url)
-        waterfall = "%s://%s%s/waterfall" % (url.scheme,  url.netloc, dirname(url.path))
+        waterfall = urlparse.urljoin(self.url, 'waterfall')
         webbrowser.open(waterfall)
 
     def on_right_click(self, data, event_button, event_time):
