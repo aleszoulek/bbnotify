@@ -1,3 +1,4 @@
 include bbnotify/media/red.png
 include bbnotify/media/green.png
 include bbnotify/media/grey.png
+include README.rst
