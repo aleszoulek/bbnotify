@@ -8,7 +8,7 @@ f.close()
 
 setup(
     name='bbnotify',
-    version='0.2',
+    version='0.3',
     url = "http://github.com/aleszoulek/bbnotify",
     description='Tray notification for BuildBot',
     long_description=long_description,
