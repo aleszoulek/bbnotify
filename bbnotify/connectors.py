@@ -1,5 +1,7 @@
 import sys
 import time
+import urllib
+import json
 
 from xmlrpclib import ServerProxy
 
@@ -52,4 +54,34 @@ class XmlRpc(object):
                     'reasons': '',
                 }
         return ret
+
+
+class Json(object):
+
+    def __init__(self, url):
+        self.url = url
+        self.last_status = {}
+
+    def _get_json(self, path=''):
+        while True:
+            try:
+                fp = urllib.urlopen("%s%s" % (self.url, path))
+                data = json.loads(fp.read())
+                fp.close()
+                return data['builders']
+            except:
+                print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
+                time.sleep(self.CONNECTION_RETRY_TIMEOUT)
+
+    def fetch_builders(self):
+        return self._get_json()['builders']
+
+    def fetch_lastbuilds(self, builder_name):
+        return self._get_json('/builders/%s/builds/-1' % builder_name)
+
+
+    def get_status(self):
+        ret = {}
+        data = self.fetch()
+        for builder_name in self.fetch_builders():
 
