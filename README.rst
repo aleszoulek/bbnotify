@@ -27,6 +27,11 @@ Usage
    -f, --forward         don't run in background
    -i builder_name, --ignore-builder=builder_name
                          don't display the status of this builder
+  -I builder_name, --include-builder=builder_name
+                        include only listed builders
+  -p [xmlrpc|json], --protocol=[xmlrpc|json] (default xmlrpc)
+                        protocol to use when comunicating with buildbot
+
 
 
 Using a configuration file
@@ -38,5 +43,7 @@ You can save some of your options in the file ~/.bbnotifyrc in the form
  [bbnotify]
  url=http://buildboturl/xmlrpc
  ignore-builders=list of builders to ignore
+ include-builders=list of builders to include
+ protocol=json|xmlrpc
 
 
