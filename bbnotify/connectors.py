@@ -7,28 +7,62 @@ from datetime import datetime
 from xmlrpclib import ServerProxy
 
 
-
-class XmlRpc(object):
+class BaseConnector(object):
 
     CONNECTION_RETRY_TIMEOUT = 10
 
-    def __init__(self, url):
+    def __init__(self, url, ignore=None, include=None):
         self.url = url
+        self.ignore = ignore
+        self.include = include
+
+    def call(self, *args, **kwargs):
+        while True:
+            try:
+                return self.query(*args, **kwargs)
+            except:
+                print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (
+                    self.url,
+                    self.CONNECTION_RETRY_TIMEOUT
+                )
+                time.sleep(self.CONNECTION_RETRY_TIMEOUT)
+
+    def empty_build_status(self):
+        return {
+            'number': 0,
+            'start': datetime.today(),
+            'finished': datetime.today(),
+            'branch': '',
+            'revision': '0',
+            'result': 'nobuild',
+            'text': 'no current build',
+        }
+
+    def get_builders(self):
+        builders = self.fetch_builders()
+        if self.ignore:
+            builders = [b for b in builders if b not in self.ignore]
+        if self.include:
+            builders = [b for b in builders if b in self.include]
+        return builders
+
+
+class XmlRpc(BaseConnector):
+
+    def __init__(self, url, *args, **kwargs):
+        super(XmlRpc, self).__init__(url, *args, **kwargs)
         self.connection = ServerProxy(self.url)
         self.last_status = {}
 
-    def call(self, name, *args, **kwargs):
-        while True:
-            try:
+    def query(self, name, *args, **kwargs):
+        return getattr(self.connection, name)(*args, **kwargs)
 
-                return getattr(self.connection, name)(*args, **kwargs)
-            except:
-                print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
-                time.sleep(self.CONNECTION_RETRY_TIMEOUT)
+    def fetch_builders(self):
+        return self.call('getAllBuilders')
 
     def get_status(self):
         ret = {}
-        for builder_name in self.call('getAllBuilders'):
+        for builder_name in self.get_builders():
             lastbuilds = self.call('getLastBuilds', builder_name, 3)
             if len(lastbuilds) > 0:
                 results = lastbuilds[-1]
@@ -45,57 +79,39 @@ class XmlRpc(object):
                 if ret[builder_name] == 'failure':
                     ret[builder_name]['results'] = 'failed'
             else:
-                #The builder has no build, use "nobuild" as it's status
-                ret[builder_name] = {
-                    'number': 0,
-                    'start': datetime.today(),
-                    'finished': datetime.today(),
-                    'branch': '',
-                    'revision': '0',
-                    'result': 'nobuild',
-                    'text': 'no current build',
-                }
+                ret[builder_name] = self.empty_build_status()
         return ret
 
 
-class Json(object):
+class Json(BaseConnector):
 
-    def __init__(self, url):
-        self.url = url
-        self.last_status = {}
-
-    def _get_json(self, path=''):
-        while True:
-            try:
-                fp = urllib.urlopen("%s%s" % (self.url, path))
-                data = json.loads(fp.read())
-                fp.close()
-                return data
-            except:
-                print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
-                time.sleep(self.CONNECTION_RETRY_TIMEOUT)
+    def query(self, path=''):
+        fp = urllib.urlopen("%s%s" % (self.url, path))
+        data = json.loads(fp.read())
+        fp.close()
+        return data
 
     def fetch_builders(self):
-        return self._get_json()['builders']
+        return self.call()['builders']
 
     def fetch_lastbuilds(self, builder_name):
-        return self._get_json('/builders/%s/builds/-1' % builder_name)
-
+        return self.call('/builders/%s/builds/-1' % builder_name)
 
     def get_status(self):
         ret = {}
-        for builder_name in self.fetch_builders():
+        for builder_name in self.get_builders():
             last_build = self.fetch_lastbuilds(builder_name)
             if not last_build:
-                return self.empty_build_status()
-            ret[builder_name] = {
-                'number': last_build['number'],
-                'start': datetime.fromtimestamp(last_build['times'][0]),
-                'finished': datetime.fromtimestamp(last_build['times'][1]),
-                'branch': last_build['sourceStamp']['branch'],
-                'revision': last_build['sourceStamp']['revision'],
-                'result': last_build['text'][0],
-                'text': last_build['text'][1],
-            }
+                ret[builder_name] = self.empty_build_status()
+            else:
+                ret[builder_name] = {
+                    'number': last_build['number'],
+                    'start': datetime.fromtimestamp(last_build['times'][0]),
+                    'finished': datetime.fromtimestamp(last_build['times'][1]),
+                    'branch': last_build['sourceStamp']['branch'],
+                    'revision': last_build['sourceStamp']['revision'],
+                    'result': last_build['text'][0],
+                    'text': last_build['text'][1],
+                }
         return ret
 
