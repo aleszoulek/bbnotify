@@ -77,13 +77,14 @@ class Notificator(object):
         'exception': 'red.png',
     }
 
-    def __init__(self, url, ignore_builders):
+    def __init__(self, url, ignore_builders, include_builders):
         if url.endswith('/'):
             url = url[:-1]
         self.url = url
         self.buildbot = BuildBot(self.url)
         self.url = url
         self.ignore_builders = ignore_builders
+        self.include_builders = include_builders
         self.icons = {}
         self.statuses = {}
         self.start()
@@ -91,6 +92,8 @@ class Notificator(object):
     def refresh(self):
         for name, status in self.buildbot.get_status().items():
             if name not in self.ignore_builders:
+                if self.include_builders and name not in self.include_builders:
+                    continue
                 if name not in self.icons:
                     self.icons[name] = gtk.StatusIcon()
                     self.icons[name].connect("activate", self.on_left_click)
