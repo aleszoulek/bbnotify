@@ -73,6 +73,8 @@ class Notificator(object):
         'success': 'green.png',
         'failure': 'red.png',
         'nobuild': 'grey.png',
+        'retry': 'grey.png',
+        'exception': 'red.png',
     }
 
     def __init__(self, url, ignore_builders):
