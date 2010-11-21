@@ -2,6 +2,7 @@ import sys
 import time
 import urllib
 import json
+from datetime import datetime
 
 from xmlrpclib import ServerProxy
 
@@ -39,8 +40,10 @@ class XmlRpc(object):
                     'revision': results[5],
                     'result': results[6],
                     'text': results[7],
-                    'reasons': results[8],
                 }
+                # compatibility with new json api
+                if ret[builder_name] == 'failure':
+                    ret[builder_name]['results'] = 'failed'
             else:
                 #The builder has no build, use "nobuild" as it's status
                 ret[builder_name] = {
@@ -51,7 +54,6 @@ class XmlRpc(object):
                     'revision': '0',
                     'result': 'nobuild',
                     'text': 'no current build',
-                    'reasons': '',
                 }
         return ret
 
@@ -68,7 +70,7 @@ class Json(object):
                 fp = urllib.urlopen("%s%s" % (self.url, path))
                 data = json.loads(fp.read())
                 fp.close()
-                return data['builders']
+                return data
             except:
                 print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (self.url, self.CONNECTION_RETRY_TIMEOUT)
                 time.sleep(self.CONNECTION_RETRY_TIMEOUT)
@@ -82,6 +84,18 @@ class Json(object):
 
     def get_status(self):
         ret = {}
-        data = self.fetch()
         for builder_name in self.fetch_builders():
+            last_build = self.fetch_lastbuilds(builder_name)
+            if not last_build:
+                return self.empty_build_status()
+            ret[builder_name] = {
+                'number': last_build['number'],
+                'start': datetime.fromtimestamp(last_build['times'][0]),
+                'finished': datetime.fromtimestamp(last_build['times'][1]),
+                'branch': last_build['sourceStamp']['branch'],
+                'revision': last_build['sourceStamp']['revision'],
+                'result': last_build['text'][0],
+                'text': last_build['text'][1],
+            }
+        return ret
 

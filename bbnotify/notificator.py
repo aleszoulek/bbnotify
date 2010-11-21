@@ -7,30 +7,34 @@ import webbrowser
 import urlparse
 
 from os.path import join, dirname, abspath
-from datetime import datetime
 
-from bbnotify.connectors import XmlRpc
+from bbnotify.connectors import XmlRpc, Json
 
 
 MEDIA_DIR = join(abspath(dirname(__file__)), 'media')
 TIMEOUT = 1000 * 30 # 30 sec
+
+PROTOCOLS = {
+    'xmlrpc': XmlRpc,
+    'json': Json,
+}
 
 
 
 class Notificator(object):
     ICONS = {
         'success': 'green.png',
-        'failure': 'red.png',
+        'failed': 'red.png',
         'nobuild': 'grey.png',
         'retry': 'grey.png',
         'exception': 'red.png',
     }
 
-    def __init__(self, url, ignore_builders, include_builders):
+    def __init__(self, url, ignore_builders, include_builders, protocol):
         if url.endswith('/'):
             url = url[:-1]
         self.url = url
-        self.buildbot = XmlRpc(self.url)
+        self.buildbot = PROTOCOLS[protocol](self.url)
         self.url = url
         self.ignore_builders = ignore_builders
         self.include_builders = include_builders
