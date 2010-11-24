@@ -76,10 +76,10 @@ class XmlRpc(BaseConnector):
                     'text': results[7],
                 }
                 # compatibility with new json api
-                if ret[builder_name] == 'success':
-                    ret[builder_name]['results'] = 'successful'
-                if ret[builder_name] == 'failure':
-                    ret[builder_name]['results'] = 'failed'
+                if ret[builder_name]['result'] == 'success':
+                    ret[builder_name]['result'] = 'successful'
+                if ret[builder_name]['result'] == 'failure':
+                    ret[builder_name]['result'] = 'failed'
             else:
                 ret[builder_name] = self.empty_build_status()
         return ret
