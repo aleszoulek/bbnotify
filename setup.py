@@ -33,5 +33,6 @@ setup(
     },
     include_package_data=True,
     zip_safe = False,
+    test_suite = "tests.runtests.run_all",
 )
 
