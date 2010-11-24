@@ -27,7 +27,7 @@ def main():
         ignore_builders = cp.get("bbnotify", "ignore-builders").split() or []
         include_builders = cp.get("bbnotify", "include-builders").split() or []
         protocol = cp.get("bbnotify", "protocol").split() or 'xmlrpc'
-        group = bool(int(cp.get("bbnotify", "group").split() or '0'))
+        #group = bool(int(cp.get("bbnotify", "group") or '0'))
 
     # parse commandline options
     parser = optparse.OptionParser()
