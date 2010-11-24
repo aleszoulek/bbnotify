@@ -93,7 +93,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -210,7 +210,7 @@
        sodipodi:ry="33.39389"
        d="m 168.14807,89.439491 a 33.39389,33.39389 0 1 1 -66.78778,0 33.39389,33.39389 0 1 1 66.78778,0 z"
        transform="translate(210.97083,121.39659)"
-       inkscape:export-filename="/home/al3x/green.png"
+       inkscape:export-filename="/home/al3x/redgreen.png"
        inkscape:export-xdpi="40.119999"
        inkscape:export-ydpi="40.119999" />
     <text
@@ -220,7 +220,7 @@
        y="213.2887"
        id="text3612-5-2"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/al3x/red.png"
+       inkscape:export-filename="/home/al3x/redgreen.png"
        inkscape:export-xdpi="40.119999"
        inkscape:export-ydpi="40.119999"><tspan
          sodipodi:role="line"
@@ -234,7 +234,7 @@
        y="236.62915"
        id="text3612-9-9-7"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/al3x/red.png"
+       inkscape:export-filename="/home/al3x/redgreen.png"
        inkscape:export-xdpi="40.119999"
        inkscape:export-ydpi="40.119999"><tspan
          sodipodi:role="line"
