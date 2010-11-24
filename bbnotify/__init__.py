@@ -8,7 +8,6 @@ from bbnotify.notificator import Notificator
 from bbnotify.daemonize import daemonize
 
 
-
 def main():
     usage = """Usage: %prog [options] http://buildboturl/xmlrpc"""
     url = None

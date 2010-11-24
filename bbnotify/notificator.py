@@ -52,7 +52,6 @@ class Notificator(object):
         self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(result)))
         self.icons[name].set_tooltip(name)
 
-
     def _notify(self, name, status):
         if name in self.statuses:
             if self.statuses[name]['finished'] < status['finished']:
