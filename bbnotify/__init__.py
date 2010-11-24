@@ -20,12 +20,14 @@ def main():
     ignore_builders = []
     include_builders = []
     protocol = 'xmlrpc'
+    group = False
     if os.path.exists(configfile):
         cp.read(configfile)
         url = cp.get("bbnotify", "url")
         ignore_builders = cp.get("bbnotify", "ignore-builders").split() or []
         include_builders = cp.get("bbnotify", "include-builders").split() or []
         protocol = cp.get("bbnotify", "protocol").split() or 'xmlrpc'
+        group = bool(int(cp.get("bbnotify", "group").split() or '0'))
 
     # parse commandline options
     parser = optparse.OptionParser()
@@ -41,6 +43,9 @@ def main():
     parser.add_option("-p", "--protocol", dest="protocol",
         metavar="[xmlrpc|json]", action="store", default=None,
         help="protocol to use when comunicating with buildbot")
+    parser.add_option("-g", "--group", dest="group",
+        action="store_true", default=False,
+        help="group status icons into one")
     parser.set_usage("%s\n%s" % (usage, parser.format_option_help()))
     (options, args) = parser.parse_args()
     if options.ignore_builders:
@@ -49,13 +54,15 @@ def main():
         include_builders = options.include_builders
     if options.protocol:
         protocol = options.protocol
+    if options.group:
+        group = options.group
     if len(args) > 0:
         url = args[0]
     if not url:
         parser.error("Missing url")
 
     # run!
-    Notificator(url, ignore_builders, include_builders, protocol=protocol)
+    Notificator(url, ignore_builders, include_builders, protocol=protocol, group=group)
     if not options.nodaemon:
         daemonize()
     gtk.main()

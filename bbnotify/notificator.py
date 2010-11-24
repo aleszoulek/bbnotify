@@ -28,9 +28,10 @@ class Notificator(object):
         'nobuild': 'grey.png',
         'retry': 'grey.png',
         'exception': 'red.png',
+        'partial': 'redgreen.png',
     }
 
-    def __init__(self, url, ignore_builders, include_builders, protocol):
+    def __init__(self, url, ignore_builders, include_builders, protocol, group):
         if url.endswith('/'):
             url = url[:-1]
         self.url = url
@@ -38,35 +39,51 @@ class Notificator(object):
         self.url = url
         self.ignore_builders = ignore_builders
         self.include_builders = include_builders
+        self.group = group
         self.icons = {}
         self.statuses = {}
         self.start()
 
+    def _refresh_icon(self, name, result):
+        if name not in self.icons:
+            self.icons[name] = gtk.StatusIcon()
+            self.icons[name].connect("activate", self.on_left_click)
+            self.icons[name].connect("popup-menu", self.on_right_click)
+        self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(result)))
+        self.icons[name].set_tooltip(name)
+
+
+    def _notify(self, name, status):
+        if name in self.statuses:
+            if self.statuses[name]['finished'] < status['finished']:
+                try:
+                    os.popen(
+                        'notify-send -u %s -t 10000 "BuildBot" "%s: New build finished"' %
+                        (
+                            status['result'] == 'success' and 'normal' or 'critical',
+                            name,
+                        )
+                    )
+                except:
+                    pass
+
     def refresh(self):
+        group_results = set([])
         for name, status in self.buildbot.get_status().items():
-            if name not in self.ignore_builders:
-                if self.include_builders and name not in self.include_builders:
-                    continue
-                if name not in self.icons:
-                    self.icons[name] = gtk.StatusIcon()
-                    self.icons[name].connect("activate", self.on_left_click)
-                    self.icons[name].connect("popup-menu", self.on_right_click)
-                self.icons[name].set_from_file(join(MEDIA_DIR, self.ICONS.get(status['result'])))
-                self.icons[name].set_tooltip(name)
-                if name in self.statuses:
-                    if self.statuses[name]['finished'] < status['finished']:
-                        try:
-                            os.popen(
-                                'notify-send -u %s -t 10000 "BuildBot" "%s: New build finished"' %
-                                (
-                                    status['result'] == 'success' and 'normal' or 'critical',
-                                    name,
-                                )
-                            )
-                        except:
-                            pass
-                self.statuses[name] = status
-        return True
+            self._notify(name, status)
+            if self.group:
+                group_results.add(status['result'])
+            else:
+                self._refresh_icon(name, status['result'])
+            self.statuses[name] = status
+        if self.group:
+            if group_results == set(['successful']):
+                result = 'successful'
+            elif 'successful' in group_results:
+                result = 'partial'
+            else:
+                result = 'failed'
+            self._refresh_icon('_', result)
 
     def start(self):
         self.refresh()

@@ -7,16 +7,28 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448819"
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 1">
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="icons.svg">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient3979">
+      <stop
+         style="stop-color:#34d240;stop-opacity:1;"
+         offset="0"
+         id="stop3981" />
+      <stop
+         style="stop-color:#ad2626;stop-opacity:1;"
+         offset="1"
+         id="stop3983" />
+    </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -45,6 +57,15 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3979"
+       id="linearGradient3987"
+       x1="131.07558"
+       y1="95.768677"
+       x2="131.07558"
+       y2="86.136963"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -54,13 +75,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2726878"
-     inkscape:cx="247.1148"
-     inkscape:cy="626.89306"
+     inkscape:cx="361.71296"
+     inkscape:cy="841.54451"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1048"
-     inkscape:window-height="1659"
+     inkscape:window-width="894"
+     inkscape:window-height="878"
      inkscape:window-x="0"
      inkscape:window-y="19"
      inkscape:window-maximized="0" />
@@ -72,7 +93,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -80,98 +101,145 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <g
+       id="g3203">
+      <path
+         inkscape:export-ydpi="40.119999"
+         inkscape:export-xdpi="40.119999"
+         inkscape:export-filename="/home/al3x/red.png"
+         transform="translate(26.715113,121.98592)"
+         d="m 168.14807,89.439491 a 33.39389,33.39389 0 1 1 -66.78778,0 33.39389,33.39389 0 1 1 66.78778,0 z"
+         sodipodi:ry="33.39389"
+         sodipodi:rx="33.39389"
+         sodipodi:cy="89.439491"
+         sodipodi:cx="134.75418"
+         id="path2816"
+         style="fill:#ff0707;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <g
+         transform="translate(0,0.47344375)"
+         id="g3694">
+        <text
+           xml:space="preserve"
+           style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+           x="139.75163"
+           y="213.40457"
+           id="text3612"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/al3x/red.png"
+           inkscape:export-xdpi="40.119999"
+           inkscape:export-ydpi="40.119999"><tspan
+             sodipodi:role="line"
+             id="tspan3614"
+             x="139.75163"
+             y="213.40457">B</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+           x="154.78676"
+           y="236.74503"
+           id="text3612-9"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/al3x/red.png"
+           inkscape:export-xdpi="40.119999"
+           inkscape:export-ydpi="40.119999"><tspan
+             sodipodi:role="line"
+             id="tspan3614-0"
+             x="154.78676"
+             y="236.74503">B</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g3195">
+      <path
+         inkscape:export-ydpi="40.119999"
+         inkscape:export-xdpi="40.119999"
+         inkscape:export-filename="/home/al3x/green.png"
+         transform="translate(117.46792,121.98592)"
+         d="m 168.14807,89.439491 a 33.39389,33.39389 0 1 1 -66.78778,0 33.39389,33.39389 0 1 1 66.78778,0 z"
+         sodipodi:ry="33.39389"
+         sodipodi:rx="33.39389"
+         sodipodi:cy="89.439491"
+         sodipodi:cx="134.75418"
+         id="path2816-7"
+         style="fill:#34d240;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <g
+         inkscape:export-ydpi="40.119999"
+         inkscape:export-xdpi="40.119999"
+         inkscape:export-filename="/home/al3x/green.png"
+         transform="translate(-4,-0.19643235)"
+         id="g3688">
+        <text
+           xml:space="preserve"
+           style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+           x="234.48618"
+           y="214.07445"
+           id="text3612-5"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/al3x/red.png"
+           inkscape:export-xdpi="40.119999"
+           inkscape:export-ydpi="40.119999"><tspan
+             sodipodi:role="line"
+             id="tspan3614-4"
+             x="234.48618"
+             y="214.07445">B</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+           x="249.5213"
+           y="237.4149"
+           id="text3612-9-9"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/al3x/red.png"
+           inkscape:export-xdpi="40.119999"
+           inkscape:export-ydpi="40.119999"><tspan
+             sodipodi:role="line"
+             id="tspan3614-0-8"
+             x="249.5213"
+             y="237.4149">B</tspan></text>
+      </g>
+    </g>
     <path
        sodipodi:type="arc"
-       style="fill:#ff0707;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="path2816"
+       style="fill:url(#linearGradient3987);fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;opacity:1"
+       id="path2816-7-2"
        sodipodi:cx="134.75418"
        sodipodi:cy="89.439491"
        sodipodi:rx="33.39389"
        sodipodi:ry="33.39389"
        d="m 168.14807,89.439491 a 33.39389,33.39389 0 1 1 -66.78778,0 33.39389,33.39389 0 1 1 66.78778,0 z"
-       transform="translate(26.715113,121.98592)"
+       transform="translate(210.97083,121.39659)"
+       inkscape:export-filename="/home/al3x/green.png"
+       inkscape:export-xdpi="40.119999"
+       inkscape:export-ydpi="40.119999" />
+    <text
+       xml:space="preserve"
+       style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+       x="323.98907"
+       y="213.2887"
+       id="text3612-5-2"
+       sodipodi:linespacing="125%"
        inkscape:export-filename="/home/al3x/red.png"
        inkscape:export-xdpi="40.119999"
-       inkscape:export-ydpi="40.119999" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#34d240;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="path2816-7"
-       sodipodi:cx="134.75418"
-       sodipodi:cy="89.439491"
-       sodipodi:rx="33.39389"
-       sodipodi:ry="33.39389"
-       d="m 168.14807,89.439491 a 33.39389,33.39389 0 1 1 -66.78778,0 33.39389,33.39389 0 1 1 66.78778,0 z"
-       transform="translate(117.46792,121.98592)"
-       inkscape:export-filename="/home/al3x/green.png"
+       inkscape:export-ydpi="40.119999"><tspan
+         sodipodi:role="line"
+         id="tspan3614-4-3"
+         x="323.98907"
+         y="213.2887">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
+       x="339.0242"
+       y="236.62915"
+       id="text3612-9-9-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/al3x/red.png"
        inkscape:export-xdpi="40.119999"
-       inkscape:export-ydpi="40.119999" />
-    <g
-       id="g3694"
-       transform="translate(0,0.47344375)">
-      <text
-         inkscape:export-ydpi="40.119999"
-         inkscape:export-xdpi="40.119999"
-         inkscape:export-filename="/home/al3x/red.png"
-         sodipodi:linespacing="125%"
-         id="text3612"
-         y="213.40457"
-         x="139.75163"
-         style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
-         xml:space="preserve"><tspan
-           y="213.40457"
-           x="139.75163"
-           id="tspan3614"
-           sodipodi:role="line">B</tspan></text>
-      <text
-         inkscape:export-ydpi="40.119999"
-         inkscape:export-xdpi="40.119999"
-         inkscape:export-filename="/home/al3x/red.png"
-         sodipodi:linespacing="125%"
-         id="text3612-9"
-         y="236.74503"
-         x="154.78676"
-         style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
-         xml:space="preserve"><tspan
-           y="236.74503"
-           x="154.78676"
-           id="tspan3614-0"
-           sodipodi:role="line">B</tspan></text>
-    </g>
-    <g
-       id="g3688"
-       transform="translate(-4,-0.19643235)"
-       inkscape:export-filename="/home/al3x/green.png"
-       inkscape:export-xdpi="40.119999"
-       inkscape:export-ydpi="40.119999">
-      <text
-         inkscape:export-ydpi="40.119999"
-         inkscape:export-xdpi="40.119999"
-         inkscape:export-filename="/home/al3x/red.png"
-         sodipodi:linespacing="125%"
-         id="text3612-5"
-         y="214.07445"
-         x="234.48618"
-         style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
-         xml:space="preserve"><tspan
-           y="214.07445"
-           x="234.48618"
-           id="tspan3614-4"
-           sodipodi:role="line">B</tspan></text>
-      <text
-         inkscape:export-ydpi="40.119999"
-         inkscape:export-xdpi="40.119999"
-         inkscape:export-filename="/home/al3x/red.png"
-         sodipodi:linespacing="125%"
-         id="text3612-9-9"
-         y="237.4149"
-         x="249.5213"
-         style="font-size:48.44880295px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L Bold"
-         xml:space="preserve"><tspan
-           y="237.4149"
-           x="249.5213"
-           id="tspan3614-0-8"
-           sodipodi:role="line">B</tspan></text>
-    </g>
+       inkscape:export-ydpi="40.119999"><tspan
+         sodipodi:role="line"
+         id="tspan3614-0-8-5"
+         x="339.0242"
+         y="236.62915">B</tspan></text>
   </g>
 </svg>
