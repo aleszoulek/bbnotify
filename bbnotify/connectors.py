@@ -76,6 +76,8 @@ class XmlRpc(BaseConnector):
                     'text': results[7],
                 }
                 # compatibility with new json api
+                if ret[builder_name] == 'success':
+                    ret[builder_name]['results'] = 'successful'
                 if ret[builder_name] == 'failure':
                     ret[builder_name]['results'] = 'failed'
             else:
@@ -95,7 +97,15 @@ class Json(BaseConnector):
         return self.call()['builders']
 
     def fetch_lastbuilds(self, builder_name):
-        return self.call('/builders/%s/builds/-1' % builder_name)
+        build = self.call('/builders/%s/builds/-1' % builder_name)
+        if build and build['times'][1] is None:
+            return self.call('/builders/%s/builds/-2' % builder_name)
+        return build
+
+    def parse_result(self, data):
+        if 'successful' in data['text']:
+            return 'successful'
+        return 'failed'
 
     def get_status(self):
         ret = {}
@@ -110,7 +120,7 @@ class Json(BaseConnector):
                     'finished': datetime.fromtimestamp(last_build['times'][1]),
                     'branch': last_build['sourceStamp']['branch'],
                     'revision': last_build['sourceStamp']['revision'],
-                    'result': last_build['text'][0],
+                    'result': self.parse_result(last_build),
                     'text': last_build['text'][1],
                 }
         return ret

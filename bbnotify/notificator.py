@@ -23,7 +23,7 @@ PROTOCOLS = {
 
 class Notificator(object):
     ICONS = {
-        'success': 'green.png',
+        'successful': 'green.png',
         'failed': 'red.png',
         'nobuild': 'grey.png',
         'retry': 'grey.png',
