@@ -21,6 +21,7 @@ class BaseConnector(object):
             try:
                 return self.query(*args, **kwargs)
             except:
+                raise
                 print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (
                     self.url,
                     self.CONNECTION_RETRY_TIMEOUT
@@ -94,7 +95,7 @@ class Json(BaseConnector):
         return data
 
     def fetch_builders(self):
-        return self.call()['builders']
+        return self.call()['builders'].keys()
 
     def fetch_lastbuilds(self, builder_name):
         build = self.call('/builders/%s/builds/-1' % builder_name)
