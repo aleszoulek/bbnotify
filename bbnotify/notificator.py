@@ -82,6 +82,7 @@ class Notificator(object):
             else:
                 result = 'failed'
             self._refresh_icon('_', result)
+        return True
 
     def start(self):
         self.refresh()
