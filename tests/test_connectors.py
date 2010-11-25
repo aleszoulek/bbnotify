@@ -47,7 +47,8 @@ class TestJsonConnector(TestCase):
                     'number': 13,
                     'start': datetime.datetime(2010, 11, 24, 22, 1, 10, 720937),
                     'finished': datetime.datetime(2010, 11, 24, 22, 8, 23, 109146),
-                    'result': 'successful', 'branch': '1.2.X',
+                    'result': 'successful',
+                    'branch': '1.2.X',
                     'revision': '14695',
                 },
             }
