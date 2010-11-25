@@ -81,7 +81,6 @@ class TestXmlRpcConnector(TestCase):
 
     def test_status(self):
         xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc')
-        print xmlrpc.get_status()
         self.maxDiff = None
         self.assertEquals(
             xmlrpc.get_status(),
@@ -115,3 +114,13 @@ class TestXmlRpcConnector(TestCase):
                 },
             }
         )
+
+    def test_include_ignore(self):
+        xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc', ignore=['failingBuilderB'])
+        self.assertEquals(set(xmlrpc.get_status().keys()), set(['failingBuilderA', 'passingBuilderX']))
+        xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc', include=['failingBuilderB'])
+        self.assertEquals(xmlrpc.get_status().keys(), ['failingBuilderB'])
+        xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc', include=['failingBuilderB'], ignore=['failingBuilderA'])
+        self.assertEquals(xmlrpc.get_status().keys(), ['failingBuilderB'])
+        xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc', include=['failingBuilderB'], ignore=['failingBuilderB'])
+        self.assertEquals(xmlrpc.get_status().keys(), [])
