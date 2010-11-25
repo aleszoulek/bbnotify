@@ -35,10 +35,8 @@ class Notificator(object):
         if url.endswith('/'):
             url = url[:-1]
         self.url = url
-        self.buildbot = PROTOCOLS[protocol](self.url)
+        self.buildbot = PROTOCOLS[protocol](self.url, include=include_builders, ignore=ignore_builders)
         self.url = url
-        self.ignore_builders = ignore_builders
-        self.include_builders = include_builders
         self.group = group
         self.icons = {}
         self.statuses = {}

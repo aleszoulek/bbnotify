@@ -24,7 +24,7 @@ class TestJsonConnector(TestCase):
         self.assertEquals(
             json.get_status(),
             {
-                'builderB': {
+                'failingBuilderB': {
                     'text': 'project 2 test',
                     'number': 30,
                     'start': datetime.datetime(2010, 11, 24, 14, 57, 31, 566614),
@@ -33,7 +33,7 @@ class TestJsonConnector(TestCase):
                     'branch': None,
                     'revision': '565c4ceadfea6dabd80e615485e2b5b5418090e7'
                 },
-                'builderA': {
+                'failingBuilderA': {
                     'text': 'project 1 test',
                     'number': 30,
                     'start': datetime.datetime(2010, 11, 24, 14, 57, 31, 566614),
@@ -42,6 +42,24 @@ class TestJsonConnector(TestCase):
                     'branch': None,
                     'revision': '565c4ceadfea6dabd80e615485e2b5b5418090e7'
                 },
+                'passingBuilderX': {
+                    'text': 'successful',
+                    'number': 13,
+                    'start': datetime.datetime(2010, 11, 24, 22, 1, 10, 720937),
+                    'finished': datetime.datetime(2010, 11, 24, 22, 8, 23, 109146),
+                    'result': 'successful', 'branch': '1.2.X',
+                    'revision': '14695',
+                },
             }
         )
+
+    def test_include_ignore(self):
+        json = connectors.Json('http://buildbot/json', ignore=['failingBuilderB'])
+        self.assertEquals(set(json.get_status().keys()), set(['failingBuilderA', 'passingBuilderX']))
+        json = connectors.Json('http://buildbot/json', include=['failingBuilderB'])
+        self.assertEquals(json.get_status().keys(), ['failingBuilderB'])
+        json = connectors.Json('http://buildbot/json', include=['failingBuilderB'], ignore=['failingBuilderA'])
+        self.assertEquals(json.get_status().keys(), ['failingBuilderB'])
+        json = connectors.Json('http://buildbot/json', include=['failingBuilderB'], ignore=['failingBuilderB'])
+        self.assertEquals(json.get_status().keys(), [])
 

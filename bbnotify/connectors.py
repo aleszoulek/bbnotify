@@ -94,7 +94,7 @@ class Json(BaseConnector):
         return data
 
     def fetch_builders(self):
-        return self.call()['builders']
+        return self.call()['builders'].keys()
 
     def fetch_lastbuilds(self, builder_name):
         build = self.call('/builders/%s/builds/-1' % builder_name)
