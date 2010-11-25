@@ -1,32 +1,12 @@
 import datetime
-from StringIO import StringIO
-from unittest import TestCase
 
+from tests.helpers import TestCase
 from bbnotify import connectors
 
 
-def urlopen_json_mock(url):
-    from tests.server import json_output
-    return StringIO(json_output.URLS[url])
-
-class MockServerProxy(object):
-    def __init__(self, *args, **kwargs):
-        pass
-
-    def __getattr__(self, name):
-        from tests.server import xmlrpc_methods
-        if name in xmlrpc_methods.METHODS:
-            return xmlrpc_methods.METHODS[name]
-        return getattr(super(MockServerProxy, self), name)
-
 class TestJsonConnector(TestCase):
 
-    def setUp(self):
-        self.orig_url_open = connectors.urllib.urlopen
-        connectors.urllib.urlopen = urlopen_json_mock
-
-    def tearDown(self):
-        connectors.urllib.urlopen = self.orig_url_open
+    mock_json = True
 
     def test_simple(self):
         json = connectors.Json('http://buildbot/json')
@@ -76,8 +56,7 @@ class TestJsonConnector(TestCase):
 
 class TestXmlRpcConnector(TestCase):
 
-    def setUp(self):
-        connectors.ServerProxy = MockServerProxy
+    mock_xmlrpc = True
 
     def test_status(self):
         xmlrpc = connectors.XmlRpc('http://buildbot/xmlrpc')
@@ -90,7 +69,7 @@ class TestXmlRpcConnector(TestCase):
                     'number': 30,
                     'start': datetime.datetime(2010, 11, 24, 14, 57, 31, 566614),
                     'finished': datetime.datetime(2010, 11, 24, 14, 57, 43, 804476),
-                    'result': 'failure',
+                    'result': 'failed',
                     'branch': None,
                     'revision': '565c4ceadfea6dabd80e615485e2b5b5418090e7'
                 },
@@ -99,7 +78,7 @@ class TestXmlRpcConnector(TestCase):
                     'number': 30,
                     'start': datetime.datetime(2010, 11, 24, 14, 57, 31, 566614),
                     'finished': datetime.datetime(2010, 11, 24, 14, 57, 43, 804476),
-                    'result': 'failure',
+                    'result': 'failed',
                     'branch': None,
                     'revision': '565c4ceadfea6dabd80e615485e2b5b5418090e7'
                 },
@@ -108,7 +87,7 @@ class TestXmlRpcConnector(TestCase):
                     'number': 13,
                     'start': datetime.datetime(2010, 11, 24, 22, 1, 10, 720937),
                     'finished': datetime.datetime(2010, 11, 24, 22, 8, 23, 109146),
-                    'result': 'success',
+                    'result': 'successful',
                     'branch': '1.2.X',
                     'revision': '14695',
                 },
