@@ -21,6 +21,7 @@ class BaseConnector(object):
             try:
                 return self.query(*args, **kwargs)
             except:
+                raise
                 print >> sys.stderr, "Connecting to %s failed. Trying again in %s sec." % (
                     self.url,
                     self.CONNECTION_RETRY_TIMEOUT
